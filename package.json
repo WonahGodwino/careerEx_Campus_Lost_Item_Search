@@ -1,0 +1,17 @@
+{
+  "name": "careerex_campus_lost_item_search",
+  "version": "1.0.0",
+  "description": "This is the backend solution for a Campus App for display of misplaced Items\r This is done based on the CareerEx Backend assignment\r It is uses Node.js and express server.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.14.2"
+  }
+}
