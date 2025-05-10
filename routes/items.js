@@ -9,7 +9,7 @@ router.post('/add/', async (req, res) => {
     const newItem = new Item({ itemName, description, locationFound, claimed });
 
     await newItem.save();
-    res.status(201).json(newItem,{message: "Items Added Successfully"});
+    res.status(201).json({message: "Items Added Successfully",newItem});
   } catch (error) {
     res.status(500).json({ message: 'Failed to add the item', error });
   }
@@ -19,7 +19,8 @@ router.post('/add/', async (req, res) => {
 router.get('/unclaimed', async (req, res) => {
   try {
     const unclaimedItems = await Item.find({ claimed: false });
-    res.status(200).json(unclaimedItems);
+    const totalUnclaimedItems = unclaimedItems.length;
+    res.status(200).json({message:'All Unclamaimed Items',totalUnclaimedItems,unclaimedItems});
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch unclaimed items', error });
   }
@@ -66,5 +67,40 @@ router.delete('/remove/:id', async (req, res) => {
     res.status(500).json({ message: 'Failed to delete the item', error });
   }
 });
+// Aditional APIs 
+// Additional API to view all items with total count
+router.get('/all', async (req, res) => {
+  try {
+    const allItems = await Item.find(); // Fetch all items
+    const totalItems = await Item.countDocuments(); // Count total items in the collection
+
+    res.status(200).json({
+      message: 'All items found on campus',
+      totalItems,
+      items: allItems
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Failed to fetch all items',
+      error: error.message
+    });
+  }
+});
+
+//API to view all cliamed items
+router.get('/claimed', async (req, res) => {
+  try {
+    const claimedItems = await Item.find({ claimed: true });
+    const totalclaimedItems= claimedItems.length; // Count total claimed items in the collection
+    res.status(200).json({
+        message: 'All Claimed Items',
+        claimedItems
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch claimed items', error });
+  }
+});
+
+
 
 module.exports = router;
