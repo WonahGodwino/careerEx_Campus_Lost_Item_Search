@@ -55,7 +55,7 @@ router.put('/edit/:id', async (req, res) => {
 
 
 // 5. Delete old/irrelevant entries
-router.delete('/remove:id', async (req, res) => {
+router.delete('/remove/:id', async (req, res) => {
   try {
     const deletedItem = await Item.findByIdAndDelete(req.params.id);
     if (!deletedItem) {
