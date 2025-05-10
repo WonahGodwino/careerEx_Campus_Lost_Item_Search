@@ -3,7 +3,7 @@ const Item = require('../models/Item');
 const router = express.Router();
 
 // 1. Add a found item
-router.post('/add', async (req, res) => {
+router.post('/add/', async (req, res) => {
   try {
     const { itemName, description, locationFound, claimed } = req.body;
     const newItem = new Item({ itemName, description, locationFound, claimed });
@@ -41,17 +41,18 @@ router.get('/view/:id', async (req, res) => {
 });
 
 // 4. Update an item’s details or mark as claimed
-router.put('/edit:id', async (req, res) => {
+router.put('/edit/:id', async (req, res) => {
   try {
     const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!updatedItem) {
       return res.status(404).json({ message: 'Item not found' });
     }
-    res.status(200).json(updatedItem,{message:'Updated Successfully'});
+    res.status(200).json({ message: 'Updated Successfully', updatedItem });
   } catch (error) {
     res.status(500).json({ message: 'Failed to update the item', error });
   }
 });
+
 
 // 5. Delete old/irrelevant entries
 router.delete('/remove:id', async (req, res) => {
