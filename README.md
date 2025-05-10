@@ -13,3 +13,9 @@ GET /api/items/view/:id: Get a single item by its ID.
 PUT /api/items/edit/:id: Update an item’s details or mark it as claimed.
 
 DELETE /api/items/remove/:id: Delete an item.
+
+GET /api/items/claimed: Get all claimed items.
+
+GET /api/items/all: Get all items.
+
+
